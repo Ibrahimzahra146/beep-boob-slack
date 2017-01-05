@@ -1,0 +1,4 @@
+//const BOT_TOKEN = "";
+//exports.BOT_TOKEN = BOT_TOKEN;
+//const SLACK_MEMBERS_LIST_URL = "";
+//exports.SLACK_MEMBERS_LIST_URL= SLACK_MEMBERS_LIST_URL;
