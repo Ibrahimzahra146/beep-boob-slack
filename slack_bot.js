@@ -24,7 +24,7 @@ var controller = Botkit.slackbot({
 });
 
 var bot = controller.spawn({
-    token: "xoxb-119148818183-1e6AviD5GLgE6WngBarpx9fZ"
+    token: SLACK_TOKEN
 }).startRTM();
 //var membersList = getMembersList();
 
