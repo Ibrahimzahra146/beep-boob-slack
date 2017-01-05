@@ -41,6 +41,8 @@
     "winston": "^2.1.1"
   },
   "scripts": {
+  "start": "node slack_bot.js",
+
     "pretest": "jscs ./lib/",
     "test": "mocha tests/*.js"
   },
