@@ -6,9 +6,9 @@ const request = require('request');
 const JSONbig = require('json-bigint');
 const async = require('async');
 const REST_PORT = (process.env.PORT || 5000);
-const APIAI_ACCESS_TOKEN = "";
-const APIAI_LANG = process.env.APIAI_LANG || 'en';
-const apiAiService = apiai(APIAI_ACCESS_TOKEN);
+//const APIAI_ACCESS_TOKEN = "";
+//const APIAI_LANG = process.env.APIAI_LANG || 'en';
+//const apiAiService = apiai(APIAI_ACCESS_TOKEN);
 var Botkit = require('./lib/Botkit.js');
 var Constants = require('./constants.js');
 var os = require('os');
@@ -24,7 +24,7 @@ var controller = Botkit.slackbot({
 });
 
 var bot = controller.spawn({
-    token: ""
+    token: SLACK_TOKEN
 }).startRTM();
 //var membersList = getMembersList();
 
@@ -194,8 +194,9 @@ controller.hears(['(.*)', '(.*)'], 'direct_message,direct_mention,mention', func
                 id1: message.user,
             };
         }
-        console.log(name);
-        let apiaiRequest = apiAiService.textRequest(name,
+                    bot.reply(message, "I am working");
+
+        /*let apiaiRequest = apiAiService.textRequest(name,
             {
                 sessionId: sessionId
             });
@@ -212,7 +213,7 @@ controller.hears(['(.*)', '(.*)'], 'direct_message,direct_mention,mention', func
 
         });
           apiaiRequest.on('error', (error) => console.error(error));
-            apiaiRequest.end();
+            apiaiRequest.end();*/
       /*  users.findOne({ id: message.user }).then(function (u) {
             let apiaiRequest = apiAiService.textRequest(name + "  " + u.email,
                 {
