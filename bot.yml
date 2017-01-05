@@ -1,0 +1,6 @@
+name: toffy
+description: |
+  
+  After installing this app on your slack team, you will notice a new bot user on the team `@toffy`.
+slackscopes:
+  - bot
