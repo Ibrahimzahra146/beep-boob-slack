@@ -17,10 +17,7 @@ const beepboop = BeepBoop.start(controller, {
     debug: true
 });
 
-// say hi when joining a channel
-controller.on('bot_channel_join', (bot, message) => {
-    bot.reply(message, 'I\'m here!')
-});
+
 var Botkit = require('./lib/Botkit.js');
 var Constants = require('./constants.js');
 var os = require('os');
@@ -42,7 +39,10 @@ var bot = controller.spawn({
     token: SLACK_TOKEN
 }).startRTM();
 //var membersList = getMembersList();
-
+// say hi when joining a channel
+controller.on('bot_channel_join', (bot, message) => {
+    bot.reply(message, 'I\'m here!')
+});
 
 /*controller.hears(['hello', 'hi'], 'direct_message,direct_mention,mention', function (bot, message) {
     user.findOne({ id: message.user, team_id: message.team }).then(function (u) {
