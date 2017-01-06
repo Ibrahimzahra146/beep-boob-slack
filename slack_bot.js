@@ -6,9 +6,22 @@ const request = require('request');
 const JSONbig = require('json-bigint');
 const async = require('async');
 const REST_PORT = (process.env.PORT || 5000);
+require('dotenv').load();
+
 //const APIAI_ACCESS_TOKEN = "";
 //const APIAI_LANG = process.env.APIAI_LANG || 'en';
 //const apiAiService = apiai(APIAI_ACCESS_TOKEN);
+const BeepBoop = require('beepboop-botkit');
+
+const controller = Botkit.slackbot();
+const beepboop = BeepBoop.start(controller, {
+    debug: true
+});
+
+// say hi when joining a channel
+controller.on('bot_channel_join', (bot, message) => {
+    bot.reply(message, 'I\'m here!')
+});
 var Botkit = require('./lib/Botkit.js');
 var Constants = require('./constants.js');
 var os = require('os');
@@ -18,10 +31,11 @@ var botChannels = db('./botChannels.json');
 var email1 = "";
 
 var sessionId = uuid.v1();
-var controller = Botkit.slackbot({
+/*var controller = Botkit.slackbot({
     debug: true,
     interactive_replies: true
 });
+*/
 
 var bot = controller.spawn({
     token: SLACK_TOKEN
@@ -51,6 +65,11 @@ var bot = controller.spawn({
     });
 
 });*/
+controller.on(['direct_message', 'direct_mention'], (bot, message) => {
+	console.log(message);
+	
+		bot.reply(message, "Ibragim I am here");
+});
 
 controller.hears(['call me (.*)', 'my name is (.*)'], 'direct_message,direct_mention,mention', function (bot, message) {
     var name = message.match[1];
@@ -194,7 +213,7 @@ controller.hears(['(.*)', '(.*)'], 'direct_message,direct_mention,mention', func
                 id1: message.user,
             };
         }
-                    bot.reply(message, "I am working");
+        bot.reply(message, "I am working");
 
         /*let apiaiRequest = apiAiService.textRequest(name,
             {
@@ -214,62 +233,62 @@ controller.hears(['(.*)', '(.*)'], 'direct_message,direct_mention,mention', func
         });
           apiaiRequest.on('error', (error) => console.error(error));
             apiaiRequest.end();*/
-      /*  users.findOne({ id: message.user }).then(function (u) {
-            let apiaiRequest = apiAiService.textRequest(name + "  " + u.email,
-                {
-                    sessionId: sessionId
-                });
-
-            apiaiRequest.on('response', (response) => {
-                let responseText = response.result.fulfillment.speech;
-                bot.reply(message, responseText);
-
-
-
-            });
-
-
-            apiaiRequest.on('error', (error) => console.error(error));
-            apiaiRequest.end();
-        });*
-       /* console.log("the email is " + email1);
-        var text12 = {
-            "text": "Please confirm time off request from ",
-            "attachments": [
-                {
-                    "text": "Choose a game to play",
-                    "fallback": "You are unable to choose a game",
-                    "callback_id": "wopr_game",
-                    "color": "#3AA3E3",
-                    "attachment_type": "default",
-                    "actions": [
-                        {
-                            "name": "confirm",
-                            "text": "Confirm",
-                            "type": "button",
-                            "value": "confirm"
-                        },
-
-                        {
-                            "name": "cancel",
-                            "text": "Cancel",
-                            "style": "danger",
-                            "type": "button",
-                            "value": "Cancel",
-                            "confirm": {
-                                "title": "Are you sure?",
-                                "text": "Are u sure?",
-                                "ok_text": "Yes",
-                                "dismiss_text": "No"
-                            }
-                        }
-                    ]
-                }
-            ]
-        }
-        var stringfy = JSON.stringify(text12);
-        var obj1 = JSON.parse(stringfy);
-        bot.reply(message, obj1);*/
+        /*  users.findOne({ id: message.user }).then(function (u) {
+              let apiaiRequest = apiAiService.textRequest(name + "  " + u.email,
+                  {
+                      sessionId: sessionId
+                  });
+  
+              apiaiRequest.on('response', (response) => {
+                  let responseText = response.result.fulfillment.speech;
+                  bot.reply(message, responseText);
+  
+  
+  
+              });
+  
+  
+              apiaiRequest.on('error', (error) => console.error(error));
+              apiaiRequest.end();
+          });*
+         /* console.log("the email is " + email1);
+          var text12 = {
+              "text": "Please confirm time off request from ",
+              "attachments": [
+                  {
+                      "text": "Choose a game to play",
+                      "fallback": "You are unable to choose a game",
+                      "callback_id": "wopr_game",
+                      "color": "#3AA3E3",
+                      "attachment_type": "default",
+                      "actions": [
+                          {
+                              "name": "confirm",
+                              "text": "Confirm",
+                              "type": "button",
+                              "value": "confirm"
+                          },
+  
+                          {
+                              "name": "cancel",
+                              "text": "Cancel",
+                              "style": "danger",
+                              "type": "button",
+                              "value": "Cancel",
+                              "confirm": {
+                                  "title": "Are you sure?",
+                                  "text": "Are u sure?",
+                                  "ok_text": "Yes",
+                                  "dismiss_text": "No"
+                              }
+                          }
+                      ]
+                  }
+              ]
+          }
+          var stringfy = JSON.stringify(text12);
+          var obj1 = JSON.parse(stringfy);
+          bot.reply(message, obj1);*/
 
         controller.storage.users.save(user, function (err, id) {
 
