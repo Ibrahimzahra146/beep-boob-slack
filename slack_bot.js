@@ -13,7 +13,6 @@ require('dotenv').load();
 //const apiAiService = apiai(APIAI_ACCESS_TOKEN);
 const BeepBoop = require('beepboop-botkit');
 
-const controller = Botkit.slackbot();
 const beepboop = BeepBoop.start(controller, {
     debug: true
 });
@@ -31,6 +30,8 @@ var botChannels = db('./botChannels.json');
 var email1 = "";
 
 var sessionId = uuid.v1();
+const controller = Botkit.slackbot();
+
 /*var controller = Botkit.slackbot({
     debug: true,
     interactive_replies: true
